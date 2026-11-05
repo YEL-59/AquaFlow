@@ -1,0 +1,74 @@
+name: AquaFlow CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-and-test:
+    name: Verification & Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: |
+            development/backend/package-lock.json
+            development/frontend/package-lock.json
+
+      # Backend Checks
+      - name: Validate Prisma Schema
+        working-directory: ./development/backend
+        run: |
+          npm ci
+          npx prisma validate
+
+      - name: Validate API Contracts
+        run: |
+          bash scripts/validate-contracts.sh
+
+      # Frontend Checks
+      - name: Build Frontend Production Bundle
+        working-directory: ./development/frontend
+        run: |
+          npm ci
+          npm run build
+
+      # Ultron Protocol Verification
+      - name: Run Avengers Protocol Validator
+        run: |
+          bash scripts/validate-project.sh
+
+  docker-build:
+    name: Build & Security Audit Docker Images
+    needs: validate-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: actions/setup-buildx-action@v3
+
+      - name: Build Backend Container
+        uses: docker/build-push-action@v5
+        with:
+          context: ./development/backend
+          file: ./infrastructure/docker/Dockerfile.backend
+          push: false
+          tags: aquaflow-backend:latest
+
+      - name: Build Frontend Container
+        uses: docker/build-push-action@v5
+        with:
+          context: ./development/frontend
+          file: ./infrastructure/docker/Dockerfile.frontend
+          push: false
+          tags: aquaflow-frontend:latest
