@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "brand": "AquaFlow",
+    "home": "Home",
+    "shop": "Products & Jars",
+    "subscriptions": "Subscriptions",
+    "deliveryAreas": "Delivery Zones",
+    "quality": "Quality & BSTI",
+    "contact": "Contact",
+    "cart": "Cart",
+    "account": "My Account",
+    "login": "Login / Register",
+    "switchLang": "বাংলা"
+  },
+  "hero": {
+    "badge": "Dhaka's #1 Certified Pure Water Delivery",
+    "headline": "Pure Hydration Delivered Directly to Your Doorstep",
+    "subheadline": "Order certified 20-liter reusable water jars and premium packaged bottles for your home or office across Dhaka. Reliable scheduled subscriptions, zero hassle.",
+    "orderNow": "Order Water Now",
+    "checkArea": "Check Delivery Zone",
+    "activeHouseholds": "12,000+ Happy Households",
+    "satisfactionRate": "99.8% On-Time Delivery"
+  },
+  "deliveryCheck": {
+    "title": "Check Water Delivery in Your Neighborhood",
+    "subtitle": "Select your Dhaka neighborhood to check slot availability, delivery fees, and estimated lead times.",
+    "selectNeighborhood": "Select Neighborhood",
+    "checkButton": "Check Availability",
+    "serviceable": "Great news! We deliver to your neighborhood.",
+    "unserviceable": "We are currently expanding to this area soon.",
+    "leadTime": "Est. Delivery Time",
+    "fee": "Delivery Fee",
+    "minOrder": "Minimum Order"
+  },
+  "products": {
+    "title": "Pure Water Products & Reusable Jars",
+    "subtitle": "Filtered through 7-stage RO purification and UV sterilization. BDS 1240:2021 certified.",
+    "reusableJar": "20L Reusable Jar",
+    "reusableJarDesc": "Standard 20-liter food-grade reusable water jar for home and office dispensers.",
+    "packagedBottle": "Packaged Water Bottle (1.5L)",
+    "packagedBottleDesc": "Premium portable drinking water bottle, perfect for daily commuting and meetings.",
+    "dispenser": "Manual Water Pump Dispenser",
+    "dispenserDesc": "Durable BPA-free manual pump dispenser compatible with all standard 20L jars.",
+    "deposit": "Jar Deposit",
+    "returnCredit": "Empty Jar Return Credit",
+    "addToCart": "Add to Cart",
+    "inStock": "In Stock",
+    "refillPrice": "Refill Price"
+  },
+  "subscriptions": {
+    "title": "Recurring Home & Office Delivery Plans",
+    "subtitle": "Never run out of drinking water. Automated scheduled delivery with flexible pause and resume.",
+    "daily": "Daily Delivery",
+    "alternateDay": "Alternate Days",
+    "weekly": "Weekly Plan",
+    "choosePlan": "Subscribe Now"
+  },
+  "footer": {
+    "description": "AquaFlow is Dhaka's modern bilingual water supply, 20L jar delivery subscription, and container ledger management platform.",
+    "compliance": "Standard BDS 1240:2021 Compliant. BSTI Certified Production.",
+    "customerCare": "Customer Support: +880 1700-000000 (8:00 AM - 10:00 PM)",
+    "copyright": "© 2026 AquaFlow Bangladesh. All rights reserved."
+  }
+}
