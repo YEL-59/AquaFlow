@@ -1,7 +1,7 @@
 # ⚙️ Project Configuration: Avengerse
 
 > **Version**: 1.0  
-> **Codename**: Avengers Protocol  
+> **Codename**: AquaFlow  
 > **Primary AI Environment**: OpenAI Codex & Compatible Multi-Agent Assistants  
 > **Architecture**: Hierarchical Multi-Agent Full-Stack System  
 > **Chief Orchestrator**: `iron_man`  
@@ -11,19 +11,19 @@
 > [!NOTE]
 > **Developer Directive**:  
 > This file is the **Single Source of Truth** for technical stack configuration.  
-> `iron_man`, `jarvis`, `friday`, `edith`, `thor`, `thanos`, and `ultron` strictly read this file to determine what libraries, frameworks, databases, and architectural patterns to implement. You can use the default stack below or customize it before running the discovery phase.
+> `iron_man`, `jarvis`, `friday`, `edith`, `thor`, `thanos`, and `ultron` strictly read this file to determine what libraries, frameworks, databases, and architectural patterns to implement. Configured specifically for **AquaFlow** based on client PRD.
 
 ---
 
 ## 1. Project Information & Metadata
 
-- **Project Name**: [PROJECT_NAME - e.g., NovaDesk / ApexCRM / MedPulse]
-- **Project Type**: Full-Stack Web + Backend + Optional Mobile
-- **Project Status**: `new` <!-- Options: new / existing / migration -->
+- **Project Name**: AquaFlow
+- **Project Type**: Bilingual Water Supply, E-Commerce, Subscription & Operations Platform
+- **Project Status**: `new`
 - **Client Requirements Source**: [README.md](README.md)
-- **Problem & Product Summary**: [Concise one-line summary of what this application does]
-- **Target Audience / End Users**: [Target audience e.g., Operations teams, general public]
-- **Target Delivery / Milestones**: [e.g., MVP in 4 weeks, Production release in 8 weeks]
+- **Problem & Product Summary**: Bilingual water supply, bottled water e-commerce, 20L jar delivery subscription, multi-location inventory, delivery dispatch, and business accounting platform serving households, offices, and commercial customers in Dhaka.
+- **Target Audience / End Users**: Dhaka households, offices, restaurants, retail shops, delivery staff, inventory managers, operations team, and business owners.
+- **Target Delivery / Milestones**: Phase 0-6 phased implementation (MVP Storefront, Orders, Delivery & Jar Ledger, Subscriptions, Finance, Online Payments).
 
 ---
 
@@ -32,11 +32,11 @@
 | Agent Name | Hero Identity | Primary Domain | Configuration File | Target Directory |
 |---|---|---|---|---|
 | **`iron_man`** | **Chief Orchestrator** | Planning, Delegation, Work Breakdown & Verification | `.codex/agents/iron_man.toml` | Root, `planning/`, `docs/` |
-| **`jarvis`** | **UI/UX & Design** | Design Tokens, Typography, Figma Parsing, 6 UI States | `.codex/agents/jarvis.toml` | `development/frontend/src/styles/`, UI Primitives |
-| **`friday`** | **Frontend Web** | Next.js, React, TypeScript, Forms, Client State | `.codex/agents/friday.toml` | `development/frontend/` |
-| **`edith`** | **Backend & Data** | NestJS, Prisma, PostgreSQL, Redis, REST APIs | `.codex/agents/edith.toml` | `development/backend/` |
-| **`thor`** | **Mobile (Optional)** | Flutter, Dart, Riverpod/Bloc, Cross-Platform App | `.codex/agents/thor.toml` | `development/mobile/` |
-| **`thanos`** | **QA & Verification** | Unit, Integration, E2E, Acceptance, Bug Snapping | `.codex/agents/thanos.toml` | Test suites across repository |
+| **`jarvis`** | **UI/UX & Design** | Design Tokens, Typography, Wavio Analysis, 6 UI States | `.codex/agents/jarvis.toml` | `development/frontend/src/styles/`, UI Primitives |
+| **`friday`** | **Frontend Web** | React, Vite, JavaScript, Tailwind v4, shadcn/ui, i18n | `.codex/agents/friday.toml` | `development/frontend/` |
+| **`edith`** | **Backend & Data** | Express.js, Prisma ORM, PostgreSQL, Redis, REST APIs | `.codex/agents/edith.toml` | `development/backend/` |
+| **`thor`** | **Mobile (Optional)** | Mobile Dashboard (Idle — Native apps out of scope for initial release) | `.codex/agents/thor.toml` | `development/mobile/` |
+| **`thanos`** | **QA & Verification** | Unit, Integration, E2E (Playwright), Invariant Tests | `.codex/agents/thanos.toml` | Test suites across repository |
 | **`ultron`** | **DevOps & Security** | Docker, Nginx, CI/CD, Cyber Security Hardening | `.codex/agents/ultron.toml` | `infrastructure/`, `.github/` |
 
 ---
@@ -46,37 +46,40 @@
 ### 3.1 Frontend Configuration (`development/frontend/`)
 > *Friday and Jarvis strictly adhere to these frontend choices.*
 - **Directory**: `development/frontend/`
-- **Framework**: `Next.js (App Router)` <!-- Options: Next.js (App Router) / React (Vite) / Vue / Nuxt / SvelteKit -->
-- **Language**: `TypeScript` (Strict Mode)
-- **Styling**: `Tailwind CSS` + Semantic CSS Variables (`globals.css`)
-- **UI Primitives**: `Radix UI` / `Shadcn UI primitives`
-- **Client UI State**: `Zustand`
+- **Framework**: `React (Vite)`
+- **Language**: `JavaScript / JSX`
+- **Styling**: `Tailwind CSS v4` + Semantic CSS Variables
+- **UI Primitives**: `shadcn/ui` + `Radix UI` accessible primitives
+- **Client UI State**: `Redux Toolkit` (minimal shared state) / React Context
 - **Server State / Data Fetching**: `TanStack Query (React Query)`
+- **Routing**: `React Router (v6+)`
 - **Form & Validation**: `React Hook Form` + `Zod`
+- **Localization**: `i18next` + `react-i18next` (English and Bangla)
+- **Charts & Visualizations**: `Recharts`
+- **Icons**: `lucide-react`
 - **Testing**: `Vitest` + `React Testing Library` + `Playwright` (E2E)
 
 ### 3.2 Backend Configuration (`development/backend/`)
 > *Edith strictly adheres to these backend choices.*
 - **Directory**: `development/backend/`
-- **Framework**: `NestJS (Modular Domain Architecture)` <!-- Options: NestJS / Express / Fastify / Django / FastAPI / Go -->
-- **Language**: `TypeScript` (Strict Mode)
-- **ORM / Database Client**: `Prisma ORM` <!-- Options: Prisma / Drizzle / TypeORM -->
-- **Primary Database**: `PostgreSQL (v15+)` <!-- Options: PostgreSQL / MySQL / MongoDB / SQLite -->
-- **Cache & Queue**: `Redis` (Session caching, rate limiting, background jobs)
-- **Object Storage**: `Local Storage` / `Cloudflare R2` / `AWS S3 compatible`
-- **API Documentation**: `REST (OpenAPI / Swagger via @nestjs/swagger)`
-- **Validation**: `class-validator` + `class-transformer`
+- **Framework**: `Express.js (Modular Domain Architecture)`
+- **Runtime Environment**: `Node.js >= 20.x LTS`
+- **Language**: `JavaScript / Node.js`
+- **ORM / Database Client**: `Prisma ORM`
+- **Primary Database**: `PostgreSQL (v15+)`
+- **Cache & Queue**: `Redis` (Session caching, rate limiting, background job queues)
+- **Timezone**: `Asia/Dhaka` (UTC+6)
+- **Monetary Types**: `Decimal / NUMERIC` (zero floating point for BDT)
+- **API Documentation**: `REST (OpenAPI / Swagger specification)`
+- **Validation**: `Zod` schema validation
+- **Logging**: `Winston` structured JSON logging + `Morgan`
+- **Background Jobs**: Scheduled cron worker for recurring subscriptions & reminders
 - **Testing**: `Jest` + `Supertest`
 
 ### 3.3 Mobile Configuration (`development/mobile/` — Optional)
-> *Thor is activated only when mobile is set to true.*
-- **Enabled**: `false` <!-- Set to true if client README.md requires mobile application -->
+> *Thor is activated only when native mobile applications are explicitly scheduled.*
+- **Enabled**: `false` *(Initial release uses responsive web and a dedicated mobile-first Delivery Staff Dashboard as specified in PRD 2.2)*
 - **Directory**: `development/mobile/`
-- **Framework**: `Flutter (Dart >= 3.0)`
-- **State Management**: `Flutter Riverpod` / `BLoC`
-- **API Client**: `Dio` (Connected to `docs/08-api-contract.md`)
-- **Secure Storage**: `flutter_secure_storage`
-- **Testing**: `Flutter Test (Widget & Unit)`
 
 ### 3.4 Infrastructure & DevOps (`infrastructure/`)
 > *Ultron strictly adheres to these infrastructure choices.*
@@ -85,7 +88,7 @@
 - **CI/CD Pipeline**: `.github/workflows/ci.yml` (Automated validation, lint, test, build)
 - **Package Manager**: `pnpm` (default) or `npm`
 - **Runtime Environment**: `Node.js >= 20.x LTS`
-- **Production Hosting Target**: `Linux VPS / Docker Swarm / Cloud VPS` (TBD)
+- **Production Hosting Target**: `Linux VPS / Docker Swarm / Cloud VPS`
 
 ---
 
