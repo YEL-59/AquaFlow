@@ -1,26 +1,31 @@
-# Backend Dockerfile (configure for the stack defined in project.config.md)
+# Multi-stage production Dockerfile for AquaFlow Express.js Backend
 FROM node:20-alpine AS base
-
-FROM base AS deps
 WORKDIR /app
+
+# Dependencies stage
+FROM base AS deps
 COPY package*.json ./
 COPY prisma ./prisma/
+COPY prisma.config.ts ./
 RUN npm ci
 
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN npx prisma generate
-RUN npm run build
-
+# Production runner stage
 FROM base AS runner
-WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/prisma ./prisma
+ENV PORT=4000
+
+# Run as non-root user for security hardening
+USER node
+
+COPY --chown=node:node --from=deps /app/node_modules ./node_modules
+COPY --chown=node:node package*.json ./
+COPY --chown=node:node prisma ./prisma
+COPY --chown=node:node prisma.config.ts ./
+COPY --chown=node:node src ./src
 
 EXPOSE 4000
-CMD ["node", "dist/main"]
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:4000/health || exit 1
+
+CMD ["node", "src/server.js"]
