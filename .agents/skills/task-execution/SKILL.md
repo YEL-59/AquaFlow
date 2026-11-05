@@ -1,17 +1,28 @@
 ---
 name: task-execution
-description: Standard workflow for executing a single assigned task under the Avengers Protocol, including context isolation, focused editing, and progress tracking.
+description: Standard workflow for executing assigned tasks under the Avengers Protocol, including autonomous multi-task execution, context isolation, focused editing, and progress tracking.
 ---
 
 # Task Execution Workflow
 
 ## Purpose
-Standard operating procedure for any agent (Jarvis, Friday, Edith, Thor, Thanos, Ultron) when implementing an assigned task from `planning/task.md`.
+Standard operating procedure for any agent (Jarvis, Friday, Edith, Thor, Thanos, Ultron) when implementing assigned tasks from `planning/task.md`.
 
-## Execution Steps
+---
+
+## ⚡ Autonomous Execution Directive ("No Need Permissions, Finish All Tasks")
+> **User Override Instruction**: When the user specifies "no need permissions finish all tasks" or directs end-to-end implementation:
+> 1. **Zero Intermediate Halts**: Do NOT stop or ask for confirmation between sequential tasks.
+> 2. **Continuous Task Transition**: When a task meets its acceptance criteria and passes verification, immediately update its status to `DONE`, promote the next dependency-ready task to `IN_PROGRESS`, and continue execution.
+> 3. **Proactive Command Execution**: Execute all required commands (migrations, builds, tests, component generation, linter checks) proactively without asking permission.
+> 4. **Aesthetic Standard ("Fancy Design Mandatory")**: All frontend deliverables must look visually stunning, premium, and alive with fluid animations, glowing glassmorphism, tailored water gradients, and micro-interactions.
+
+---
+
+## Standard Execution Steps
 
 ### 1. Task Intake & Ownership
-- Identify the requested `TASK-ID` in `planning/task.md` and load its dedicated file: `planning/tasks/${TASK-ID}.md`.
+- Identify the active `TASK-ID` in `planning/task.md` and load its dedicated file: `planning/tasks/${TASK-ID}.md`.
 - Verify you are the assigned agent (`Assignee`).
 - Check that all prerequisite `Dependencies` are marked `DONE`.
 - Confirm that the task status is `READY`. Change status to `IN_PROGRESS` in both `planning/task.md` and `planning/tasks/${TASK-ID}.md`.
@@ -27,21 +38,16 @@ Standard operating procedure for any agent (Jarvis, Friday, Edith, Thor, Thanos,
 - Make focused, surgical changes.
 - Reuse existing components, hooks, domain services, and utilities.
 - Never rewrite entire files when replacing a targeted function or block.
-- Follow the domain rules:
-  - Frontend: 6 UI States, accessible markup, WCAG 2.2 AA.
-  - Backend: DTO validation, service business logic, transaction safety.
+- Follow domain rules:
+  - **Frontend**: Fancy, WOW-factor aesthetics, 6 UI States, accessible markup, WCAG 2.2 AA.
+  - **Backend**: DTO validation, service business logic, transaction safety.
 
 ### 4. Verification Check
 - Run focused checks (type-check, linter, unit test for modified file).
 - If checks fail, fix the issue immediately before reporting completion.
 
 ### 5. Checkpoint & Reporting
-- Update `planning/tasks/${TASK-ID}.md` with actual test verification logs and mark status (`IN_REVIEW` or `DONE`).
+- Update `planning/tasks/${TASK-ID}.md` with actual test verification logs and mark status (`DONE`).
 - Synchronize status in the master board: `planning/task.md`.
-- Update `planning/updateplanning.md` with:
-  - Task ID and Assignee.
-  - Files modified.
-  - Verification commands run and results.
-  - Next ready task.
-  - **Fresh Session Handoff Command**: Always output the exact command (`planning/updateplanning.md পড়ে [NEXT-TASK-ID] শুরু করো`) and advise the developer to open a new chat window to eliminate token compounding and maintain 95% token efficiency.
-
+- Update `planning/updateplanning.md`.
+- If in autonomous mode, immediately transition to the next ready task!
