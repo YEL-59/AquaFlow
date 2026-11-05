@@ -8,11 +8,16 @@
 
 | Question ID | Date Logged | Domain | Question Description | Impacted Agent | Status | Resolution |
 |---|---|---|---|---|---|---|
-| `Q-001` | 2026-11-02 | General | What is the client's preferred authentication strategy (JWT cookie vs Bearer token vs OAuth)? | `edith`, `friday` | `OPEN` | Pending user input in README.md |
-| `Q-002` | 2026-11-02 | Mobile | Is a mobile application required for this project? | `thor` | `OPEN` | If N/A, Thor remains idle |
-| `Q-003` | 2026-11-02 | Deployment | Target production hosting environment (VPS vs AWS vs Railway/Vercel)? | `ultron` | `OPEN` | Pending decision |
+| `Q-004` | 2026-11-04 | Integrations | Which Bangladesh SMS gateway provider (e.g., SSL Wireless, Greenweb, Elitbuzz) will be used for production phone OTPs? *(A mock OTP provider is enabled for dev/testing)* | `edith`, `ultron` | `OPEN` | Pending client vendor credentials |
+| `Q-005` | 2026-11-04 | Payments | When bKash merchant account credentials and SSLCOMMERZ store ID become available, which will be activated first for online payments? | `edith`, `friday` | `OPEN` | Phase 6 integration (COD and manual recording active initially) |
+| `Q-006` | 2026-11-04 | Compliance | Are there specific BSTI license registration numbers and batch lab report templates to store in the batch document management module? | `edith`, `iron_man` | `OPEN` | Generic batch & document attachment schema provided |
 
 ---
 
 ## Resolved Questions Log
-*(Move resolved items here with date and confirmed decision)*
+
+| Question ID | Date Resolved | Domain | Resolution Summary |
+|---|---|---|---|
+| `Q-001` | 2026-11-04 | Auth | JWT access tokens with short TTL + HttpOnly SameSite refresh cookies + Phone OTP verification confirmed in PRD 15.1. |
+| `Q-002` | 2026-11-04 | Mobile | Native mobile apps out of scope for MVP; mobile-first web dashboard for delivery staff confirmed in PRD 2.2. |
+| `Q-003` | 2026-11-04 | Infrastructure | Multi-stage Docker + Nginx reverse proxy target on Linux VPS confirmed in PRD 10.1 & 10.4. |
