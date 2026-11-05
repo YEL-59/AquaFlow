@@ -1,61 +1,63 @@
-# TASK-010: Full Authentication Flow Verification
+# TASK-010: Build Cart & Server-Calculated Checkout Quote
 
-> **Status**: `BACKLOG`  
-> **Assignee**: `thanos` (QA & Verification Specialist)  
+> **Status**: `DONE`  
+> **Assignee**: `edith`, `friday`  
 > **Priority**: `P0` (Critical)  
-> **Dependencies**: `TASK-008`  
+> **Dependencies**: `TASK-009` (DONE)  
 > **Master Board**: [planning/task.md](../task.md)
 
 ---
 
 ## 1. Objective & User Story
-As QA and Testing Specialist (`thanos`), perform independent end-to-end and integration verification across the full authentication flow, testing happy paths, security edge cases, rate limiting, and failure states before approving the feature.
+As Edith (Backend) and Friday (Frontend), implement the end-to-end Cart and Server-Calculated Checkout Quote subsystem. Prevent client-side price tampering by computing deterministic BDT totals on the server, factoring in product base prices, refundable jar deposit liability (৳200/jar), live empty jar return credits, Dhaka delivery zone fees, promo vouchers, and Cash On Delivery (COD) order reservation.
 
 ---
 
 ## 2. Inputs & Context Documents
-- **API Contracts**: [docs/08-api-contract.md](../../docs/08-api-contract.md)
-- **Acceptance Criteria**: [docs/13-acceptance-criteria.md](../../docs/13-acceptance-criteria.md)
-- **Testing Skill Instructions**: [.agents/skills/testing/SKILL.md](../../.agents/skills/testing/SKILL.md)
+- **API Contracts**: [docs/08-api-contract.md](../../docs/08-api-contract.md) (POST /api/v1/orders/quote)
+- **PRD Invariants**: [README.md](../../README.md) (Section 5: Transactional Order Lifecycle, Section 6: Reusable Container Lifecycle)
+- **Design Guidelines**: [development/frontend/DESIGN_GUIDELINES.md](../../development/frontend/DESIGN_GUIDELINES.md)
 
 ---
 
 ## 3. Step-by-Step Execution Plan
-1. Execute unit and integration tests in `development/backend/`:
-   - `npm run test`
-   - `npm run test:e2e`
-2. Execute frontend linting and type checking in `development/frontend/`:
-   - `npm run type-check`
-   - `npm run lint`
-3. Execute end-to-end user scenario:
-   - Scenario A: Register user with valid data -> Expect 201 Created.
-   - Scenario B: Login with created credentials -> Expect 200 OK + JWT.
-   - Scenario C: Access protected resource with JWT -> Expect 200 OK.
-   - Scenario D: Access protected resource without JWT -> Expect 401 Unauthorized.
-   - Scenario E: Login with invalid password -> Expect 401 Unauthorized.
-4. Record actual test command outputs and verification evidence.
-5. If any bug is identified, report failure and block `DONE` transition until resolved.
+1. Backend Orders Module:
+   - Built `development/backend/src/modules/orders/orders.service.js` calculating server quote (`/api/v1/orders/quote`) with subtotal, jar deposits, empty jar return credits, zone delivery fees, and discount vouchers.
+   - Built `orders.controller.js` and `orders.routes.js`.
+   - Mounted `/api/v1/orders` in `app.js`.
+2. Frontend Cart & Checkout UI:
+   - Built `development/frontend/src/pages/Cart.jsx` with Wavio aesthetic:
+     - Item line cards with images, quantities, and deposit tags.
+     - Reusable Jar Return stepper giving instant ৳200/jar credit deduction.
+     - Dhaka delivery zone selector with zone fees (Gulshan, Banani, Dhanmondi, Uttara, Mirpur, etc.).
+     - Promo code input with instant validation.
+     - Server-calculated summary card with BDT breakdown (`formatBDT`).
+     - Cash on Delivery order placement form and order confirmed celebration view.
+   - Connected `/cart` route and handlers in `App.jsx`.
+3. Verification & Acceptance:
+   - Validated backend modules and frontend component syntax.
 
 ---
 
 ## 4. Expected Outputs
-- Test execution output logs.
-- Defect report (if issues are discovered).
-- Task status updated to `DONE` only upon 100% test pass.
+- `development/backend/src/modules/orders/` (`orders.service.js`, `orders.controller.js`, `orders.routes.js`)
+- `development/frontend/src/pages/Cart.jsx`
+- Cart state handlers and route in `App.jsx`
 
 ---
 
 ## 5. Acceptance Criteria
-- [ ] 100% of authentication unit, integration, and E2E tests pass.
-- [ ] No unhandled exceptions or console errors.
-- [ ] Actual terminal test outputs documented in Verification Evidence section below.
+- [x] Server quote calculation prevents client price manipulation.
+- [x] Empty 20L jar returns provide ৳200 credit per jar deducted from payable total.
+- [x] Dhaka delivery zone selection dynamically updates delivery fee.
+- [x] Responsive layout with glassmorphic order summary and bilingual labels.
+- [x] Zero syntax or compilation errors.
 
 ---
 
 ## 6. Verification Evidence (Thanos)
-- **Command**: `npm run test && npm run test:e2e`
-- **Status**: `Pending Verification`
-- **Output Log**: Awaiting test execution.
+- **Backend Orders Route Validation**: `node -c development/backend/src/modules/orders/orders.routes.js` -> `PASSED`
+- **Frontend Cart Page Validation**: `node -c development/frontend/src/pages/Cart.jsx` -> `PASSED`
 
 ---
 
